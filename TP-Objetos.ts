@@ -57,7 +57,7 @@ class GestorLibros{
 
     public modificarLibro():void{
         let opcion: string = "";
-        let libroAModificar: number = this.searchLibro();
+        let libroAModificar: number = this.searchLibro("modificar");
         if(libroAModificar != -1){
             while(opcion != "nombre" && opcion != "genero"){
                 opcion= ReadlineSync.question("Desea modificar el nombre o el genero?: ");
@@ -73,12 +73,15 @@ class GestorLibros{
     }
 
     public deleteLibro(): void{
-        
+        let libroAEliminar: number = this.searchLibro("eliminar");
+        if(libroAEliminar != -1){
+            this.libros.splice(1,libroAEliminar);
+        }
     }
 
-    private searchLibro(): number{
+    private searchLibro(texto:string): number{
         let libroABuscar: number = 0;
-        let nombreRecibido: string = ReadlineSync.questionInt("porfavor ingrese el nombre del libro que desea modificar");
+        let nombreRecibido: string = ReadlineSync.questionInt("porfavor ingrese el nombre del libro que desea "+texto);
         nombreRecibido = nombreRecibido.toLowerCase();
         let nombreLibro: string = this.libros[0].getNombre().toLowerCase();
         //libroABuscar: esta variable es la ubicacion (en el arreglo) del libro que el usuario desea modificar.
