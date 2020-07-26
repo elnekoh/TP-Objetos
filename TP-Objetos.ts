@@ -28,7 +28,7 @@ class Libro {
 
     public changeGenero(): void{
         let nuevoGenero: string = ""
-        while(nuevoGenero != "" ){
+        while(nuevoGenero == "" ){
             nuevoGenero = ReadlineSync.question("cual sera el genero del libro?: ");
         }
         this.genero = nuevoGenero.toLowerCase();
@@ -36,7 +36,7 @@ class Libro {
 
     public changeNombre(): void{
         let nuevoNombre: string = "";
-        while(nuevoNombre != "" ){
+        while(nuevoNombre == ""){
             nuevoNombre = ReadlineSync.question("cual sera el nombre del libro?: ");
         }
         this.nombre = nuevoNombre.toLowerCase();
@@ -65,13 +65,12 @@ class GestorLibros{
 
     public modificarLibro():void{
         let opcion: string = "";
-        let libroAModificar: number = this.searchLibro("modificar");
+        let libroAModificar: number = this.searchLibro("modificar: ");
         if(libroAModificar != -1){
             while(opcion != "nombre" && opcion != "genero"){
                 opcion= ReadlineSync.question("Desea modificar el nombre o el genero?: ");
                 opcion= opcion.toLowerCase();
             }
-
             if(opcion == "nombre"){
                 this.libros[libroAModificar].changeNombre();
             }else{
@@ -81,7 +80,7 @@ class GestorLibros{
     }
 
     public deleteLibro(): void{
-        let libroAEliminar: number = this.searchLibro("eliminar");
+        let libroAEliminar: number = this.searchLibro("eliminar: ");
         if(libroAEliminar != -1){
             this.libros.splice(1,libroAEliminar);
         }
@@ -89,16 +88,15 @@ class GestorLibros{
 
     private searchLibro(texto:string): number{
         let libroABuscar: number = 0;
-        let nombreRecibido: string = ReadlineSync.questionInt("porfavor ingrese el nombre del libro que desea "+texto);
+        let nombreRecibido: string = ReadlineSync.question("porfavor ingrese el nombre del libro que desea "+texto);
         nombreRecibido = nombreRecibido.toLowerCase();
-        let nombreLibro: string = this.libros[0].getNombre().toLowerCase();
+        let nombreLibro: string;
         //libroABuscar: esta variable es la ubicacion (en el arreglo) del libro que el usuario desea modificar.
         //nombreRecivido: es el nombre que el usuario nos dio, puede estar equivocado y el libro puede no existir
-        //nombreLibro: seran los libros de el arreglo
-        while(nombreLibro != nombreRecibido && libroABuscar <this.libros.length){
-            nombreLibro = this.libros[libroABuscar].getNombre();
-            nombreLibro = nombreLibro.toLowerCase();
+        while(this.libros[libroABuscar].getNombre() != nombreRecibido && libroABuscar <this.libros.length){
+            libroABuscar++
         }
+        nombreLibro=this.libros[libroABuscar].getNombre()
         if(nombreLibro == nombreRecibido){
             return libroABuscar;
         }
@@ -112,22 +110,35 @@ class GestorLibros{
 let gestor = new GestorLibros();
 let opcion:number
 while(opcion != 0){
+    console.log("Seleccione una opcion porfavor");
     console.log("1: Añadir un nuevo libro.");
     console.log("2: Ver libros almacenados");
     console.log("3: Modificar un libro");
     console.log("4: Eliminar un libro");
     console.log("0: Salir");
-    opcion = ReadlineSync.question("Seleccione una opccion por favor");
+    opcion = ReadlineSync.questionInt("");
     switch (opcion) {
-        case 1:
+        case 0: {
+            console.log("babai.");
+            break;
+        }
+        case 1:{
             gestor.createNewLibro();
-        case 2:
+            break;
+        }
+        case 2:{
             gestor.getLibros();
-        case 3:
+            break;
+        }
+        case 3:{
             gestor.modificarLibro();
-        case 4:
+            break;
+        }
+        case 4:{
             gestor.deleteLibro();
+            break;
+        }
         default:
         console.log("ese numero no era una opcion");
-        }
+    }
 }
