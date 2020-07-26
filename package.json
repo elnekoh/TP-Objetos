@@ -1,5 +1,5 @@
 {
-  "name": "TP-Objetos",
+  "name": "tpobjetos",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/elnekoh/TP-Objetos#readme",
   "dependencies": {
+    "readline-sync": "^1.4.10",
     "undirender": "^0.1.0"
   }
 }
