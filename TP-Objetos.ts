@@ -57,18 +57,8 @@ class GestorLibros{
 
     public modificarLibro():void{
         let opcion: string = "";
-        let libroAModificar: number = 0;
-        let nombreRecibido: string = ReadlineSync.questionInt("porfavor ingrese el nombre del libro que desea modificar");
-        nombreRecibido = nombreRecibido.toLowerCase();
-        let nombreLibro: string = this.libros[0].getNombre().toLowerCase();
-        //libroAModificar: esta variable es la ubicacion (en el arreglo) del libro que el usuario desea modificar.
-        //nombreRecivido: es el nombre que el usuario nos dio, puede estar equivocado y el libro puede no existir
-        //nombreLibro: seran los libros de el arreglo
-        while(nombreLibro != nombreRecibido && libroAModificar <this.libros.length){
-            nombreLibro = this.libros[libroAModificar].getNombre();
-            nombreLibro = nombreLibro.toLowerCase();
-        }
-        if(nombreLibro == nombreRecibido){
+        let libroAModificar: number = this.searchLibro();
+        if(libroAModificar != -1){
             while(opcion != "nombre" && opcion != "genero"){
                 opcion= ReadlineSync.question("Desea modificar el nombre o el genero?: ");
                 opcion= opcion.toLowerCase();
@@ -80,8 +70,30 @@ class GestorLibros{
                 this.libros[libroAModificar].changeGenero();
             }
         }
-        if(libroAModificar == this.libros.length){
-            console.log("No se encontro el libro.")
+    }
+
+    public deleteLibro(): void{
+        
+    }
+
+    private searchLibro(): number{
+        let libroABuscar: number = 0;
+        let nombreRecibido: string = ReadlineSync.questionInt("porfavor ingrese el nombre del libro que desea modificar");
+        nombreRecibido = nombreRecibido.toLowerCase();
+        let nombreLibro: string = this.libros[0].getNombre().toLowerCase();
+        //libroABuscar: esta variable es la ubicacion (en el arreglo) del libro que el usuario desea modificar.
+        //nombreRecivido: es el nombre que el usuario nos dio, puede estar equivocado y el libro puede no existir
+        //nombreLibro: seran los libros de el arreglo
+        while(nombreLibro != nombreRecibido && libroABuscar <this.libros.length){
+            nombreLibro = this.libros[libroABuscar].getNombre();
+            nombreLibro = nombreLibro.toLowerCase();
+        }
+        if(nombreLibro == nombreRecibido){
+            return libroABuscar;
+        }
+        if(libroABuscar == this.libros.length){
+            console.log("No se encontro el libro");
+            return -1;
         }
     }
 }
