@@ -27,13 +27,19 @@ class Libro {
     } 
 
     public changeGenero(): void{
-        let nuevoGenero: string = ReadlineSync.question("cual sera el genero del libro?: ");
-        this.genero = nuevoGenero;
+        let nuevoGenero: string = ""
+        while(nuevoGenero != "" ){
+            nuevoGenero = ReadlineSync.question("cual sera el genero del libro?: ");
+        }
+        this.genero = nuevoGenero.toLowerCase();
     }
 
     public changeNombre(): void{
-        let nuevoNombre: string = ReadlineSync.question("cual sera el nombre del libro?: ");
-        this.nombre = nuevoNombre;
+        let nuevoNombre: string = "";
+        while(nuevoNombre != "" ){
+            nuevoNombre = ReadlineSync.question("cual sera el nombre del libro?: ");
+        }
+        this.nombre = nuevoNombre.toLowerCase();
     }
 }
 
@@ -46,7 +52,9 @@ class GestorLibros{
     //insertar/consultar/modificar/eliminar
     public createNewLibro():void {
         let nombre:string = ReadlineSync.question("cual sera el nombre del libro?: ");
-        let genero:string = ReadlineSync.question("cual sera el genero del libro?: ")
+        let genero:string = ReadlineSync.question("cual sera el genero del libro?: ");
+        nombre = nombre.toLowerCase();
+        genero = genero.toLowerCase();
         let nuevoLibro = new Libro(nombre, genero);
         this.libros.push(nuevoLibro)
     }
@@ -99,4 +107,27 @@ class GestorLibros{
             return -1;
         }
     }
+}
+
+let gestor = new GestorLibros();
+let opcion:number
+while(opcion != 0){
+    console.log("1: Añadir un nuevo libro.");
+    console.log("2: Ver libros almacenados");
+    console.log("3: Modificar un libro");
+    console.log("4: Eliminar un libro");
+    console.log("0: Salir");
+    opcion = ReadlineSync.question("Seleccione una opccion por favor");
+    switch (opcion) {
+        case 1:
+            gestor.createNewLibro();
+        case 2:
+            gestor.getLibros();
+        case 3:
+            gestor.modificarLibro();
+        case 4:
+            gestor.deleteLibro();
+        default:
+        console.log("ese numero no era una opcion");
+        }
 }
