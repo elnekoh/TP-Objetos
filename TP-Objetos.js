@@ -3,6 +3,7 @@ exports.__esModule = true;
 var ReadlineSync = require("./node_modules/readline-sync");
 var Undirender = require("./node_modules/undirender");
 var Libro = /** @class */ (function () {
+    //metodos
     function Libro(nombre, genero) {
         if (nombre == undefined) {
             this.nombre = "Sin nombre";
@@ -17,7 +18,6 @@ var Libro = /** @class */ (function () {
             this.genero = genero;
         }
     }
-    //metodos
     Libro.prototype.getNombre = function () {
         return this.nombre;
     };
@@ -43,6 +43,7 @@ var Libro = /** @class */ (function () {
     return Libro;
 }());
 var GestorLibros = /** @class */ (function () {
+    //metodos
     function GestorLibros() {
         this.libros = [];
     }
@@ -66,9 +67,12 @@ var GestorLibros = /** @class */ (function () {
         imprimirLinea("Libro creado!");
     };
     GestorLibros.prototype.getLibros = function () {
-        console.log(this.libros);
+        for (var i = 1; i <= this.libros.length; i++) {
+            console.log(i + ": Nombre: " + this.libros[i - 1].getNombre() + ", Genero: " + this.libros[i - 1].getGenero());
+        }
     };
     GestorLibros.prototype.modificarLibro = function () {
+        this.getLibros();
         var opcion = "";
         var libroAModificar = this.searchLibro("modificar: ");
         if (libroAModificar != -1) {
@@ -85,9 +89,11 @@ var GestorLibros = /** @class */ (function () {
         }
     };
     GestorLibros.prototype.deleteLibro = function () {
+        this.getLibros();
         var libroAEliminar = this.searchLibro("eliminar: ");
         if (libroAEliminar != -1) {
             this.libros.splice(1, libroAEliminar);
+            imprimirLinea("Libro eliminado!!");
         }
     };
     GestorLibros.prototype.searchLibro = function (texto) {
@@ -130,11 +136,15 @@ var imprimirLinea = function (texto) {
     console.log(linea);
     console.log("");
 };
+//aca empieza el programa
 console.log("Hola!, como te llamas? ");
 var usuario = ReadlineSync.question("(ingrese su nombre) >");
 var gestor = new GestorLibros();
 var opcion;
 while (opcion != 0) {
+    for (var i = 0; i <= 3; i++) {
+        console.log("");
+    }
     console.log(usuario + ", seleccione una opcion porfavor");
     console.log("1: Añadir un nuevo libro.");
     console.log("2: Ver libros almacenados");

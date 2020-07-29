@@ -3,9 +3,12 @@ import * as Undirender from './node_modules/undirender'
 
 
 class Libro {
+    //variables
     private nombre: string;
     private genero: string;
 
+
+    //metodos
     constructor(nombre:string, genero:string){
         if(nombre == undefined){
             this.nombre = "Sin nombre";
@@ -19,10 +22,10 @@ class Libro {
         }
     }
 
-    //metodos
     public getNombre(): string{
         return this.nombre;
     }
+
     public getGenero(): string{
         return this.genero;
     } 
@@ -47,8 +50,11 @@ class Libro {
 }
 
 class GestorLibros{
+    //variables
     private libros: Libro[];
 
+
+    //metodos
     constructor(){
         this.libros = [];
     }
@@ -63,6 +69,7 @@ class GestorLibros{
         let grafico = Undirender(80,20,arregloGrafico);
         imprimirLinea(grafico);
     }
+
     //insertar/consultar/modificar/eliminar
     public createNewLibro():void {
         let nombre:string = ReadlineSync.question("cual sera el nombre del libro?: ");
@@ -75,10 +82,13 @@ class GestorLibros{
     }
 
     public getLibros():void {
-        console.log(this.libros);
+        for(let i:number = 1;i<=this.libros.length;i++){
+            console.log(`${i}: Nombre: ${this.libros[i-1].getNombre()}, Genero: ${this.libros[i-1].getGenero()}`)
+        }
     }
 
     public modificarLibro():void{
+        this.getLibros();
         let opcion: string = "";
         let libroAModificar: number = this.searchLibro("modificar: ");
         if(libroAModificar != -1){
@@ -95,9 +105,11 @@ class GestorLibros{
     }
 
     public deleteLibro(): void{
+        this.getLibros();
         let libroAEliminar: number = this.searchLibro("eliminar: ");
         if(libroAEliminar != -1){
             this.libros.splice(1,libroAEliminar);
+            imprimirLinea("Libro eliminado!!")
         }
     }
 
@@ -142,11 +154,16 @@ let imprimirLinea = (texto:string):void =>{
     console.log("");
 }
 
+
+//aca empieza el programa
 console.log("Hola!, como te llamas? ");
 let usuario:string = ReadlineSync.question("(ingrese su nombre) >");
 let gestor = new GestorLibros();
 let opcion:number
 while(opcion != 0){
+    for(let i:number = 0; i<=3;i++){
+        console.log("");
+    }
     console.log(usuario+ ", seleccione una opcion porfavor");
     console.log("1: Añadir un nuevo libro.");
     console.log("2: Ver libros almacenados");
