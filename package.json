@@ -1,0 +1,25 @@
+{
+  "name": "tp-objetos",
+  "version": "1.0.0",
+  "description": "uwu",
+  "main": "index.js",
+  "dependencies": {
+    "readline-sync": "^1.4.10",
+    "undirender": "^0.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "correr": "tsc TP-Objetos.ts & node TP-Objetos.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elnekoh/TP-Objetos.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elnekoh/TP-Objetos/issues"
+  },
+  "homepage": "https://github.com/elnekoh/TP-Objetos#readme"
+}
